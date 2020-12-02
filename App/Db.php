@@ -34,4 +34,15 @@ class Db
         return $ret;
     }
 
+    public function execute(string $sql, array $params = []): bool
+    {
+        $sth = $this->dbh->prepare($sql);
+        return $sth->execute($params);
+    }
+
+    public function lastInsertId()
+    {
+        return $this->dbh->lastInsertId();
+    }
+
 }
