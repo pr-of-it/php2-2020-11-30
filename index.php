@@ -2,15 +2,10 @@
 
 declare(strict_types=1);
 
-use App\Models\HasPriceInterface;
-use App\Models\Product;
-
 require __DIR__ . '/autoload.php';
 
-$product = new Product();
-$product->name = 'Сумка кожаная';
-$product->price = 5500;
-$product->weight = 1.5;
-$product->insert();
+$view = new \App\View();
 
-var_dump($product);
+$view->products = \App\Models\Product::findAll();
+
+$view->display(__DIR__ . '/App/Templates/index.php');
