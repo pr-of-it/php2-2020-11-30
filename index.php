@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 require __DIR__ . '/autoload.php';
 
-$view = new \App\View();
+$ctrl = $_GET['ctrl'] ?? 'Index';
+$class = '\App\Controllers\\' . $ctrl;
 
-$view->products = \App\Models\Product::findAll();
-
-$view->display(__DIR__ . '/App/Templates/index.php');
+$controller = new $class();
+$controller();

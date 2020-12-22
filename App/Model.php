@@ -16,6 +16,18 @@ abstract class Model
         return $db->query($sql, [], static::class);
     }
 
+    public static function findById($id)
+    {
+        $db = new Db();
+        $sql = 'SELECT * FROM ' . static::TABLE . ' WHERE id=:id';
+        $data = $db->query($sql, [':id' => $id], static::class);
+        if (empty($data)) {
+            return null;
+        } else {
+            return $data[0];
+        }
+    }
+
     public function insert()
     {
         $props = [];

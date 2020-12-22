@@ -14,7 +14,11 @@
 
     <div class="container">
 
-        <h1>Товары</h1>
+        <h1><?php echo $this->product->name; ?></h1>
+
+        <p>
+            <a href="/">Назад</a>
+        </p>
 
         <table class="table table-striped">
             <tr>
@@ -22,17 +26,11 @@
                 <th>Цена</th>
                 <th>Вес</th>
             </tr>
-            <?php foreach ($this->products as $product) : ?>
             <tr>
-                <td>
-                    <a href="/?ctrl=Item&id=<?php echo $product->id; ?>">
-                        <?php echo $product->name; ?>
-                    </a>
-                </td>
-                <td><?php echo $product->price; ?> ₽</td>
-                <td><?php echo $product->weight; ?></td>
+                <td><?php echo $this->product->name; ?></td>
+                <td><?php echo $this->product->price; ?> ₽</td>
+                <td><?php echo $this->product->weight; ?></td>
             </tr>
-            <?php endforeach; ?>
         </table>
 
     </div>
