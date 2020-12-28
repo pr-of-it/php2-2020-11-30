@@ -8,4 +8,11 @@ $ctrl = $_GET['ctrl'] ?? 'Index';
 $class = '\App\Controllers\\' . $ctrl;
 
 $controller = new $class();
-$controller();
+
+try {
+    $controller();
+} catch (PDOException $e) {
+    echo 'Возникла ошибка базы данных: ' . $e->getMessage();
+} catch (Exception $e) {
+    echo 'Возникла ошибка: ' . $e->getMessage();
+}
