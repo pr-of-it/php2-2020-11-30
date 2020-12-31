@@ -1,63 +1,24 @@
 <?php
 
-class Errors extends Exception implements Countable
-{
-    protected $errors = [];
+$first = function () {
+    echo 'First!';
+};
 
-    public function add($error) {
-        $this->errors[] = $error;
-    }
+$second = function () {
+    echo 'Second!';
+};
 
-    public function all()
-    {
-        return $this->errors;
-    }
+$stack = [
+    '20:52:00' => $first,
+    '20:52:20' => $second,
+    '20:52:30' => $first,
+];
 
-    public function count()
-    {
-        return count($this->errors);
-    }
-}
-
-class RegisterForm
-{
-    protected string $login;
-    protected string $password;
-
-    public function __construct($login, $password)
-    {
-        $errors = new Errors();
-
-        if (strlen($login) < 6) {
-            $errors->add(new Exception('Слишком короткий логин'));
-        }
-        if (strlen($password) < 6) {
-            $errors->add(new Exception('Слишком короткий пароль'));
-        }
-
-        if (count($errors) > 0) {
-            throw $errors;
-        }
-
-        $this->login = $login;
-        $this->password = $password;
-    }
-
-    public function getData()
-    {
-        return [
-            'login' => $this->login,
-            'password' => $this->password,
-        ];
-    }
-
-}
-
-try {
-    $dto = new RegisterForm('vasya', '12345');
-    var_dump($dto->getData());
-} catch (Errors $errors) {
-    foreach ($errors->all() as $e) {
-        echo 'Ошибка: ' . $e->getMessage();
+while (true) {
+    $time = date('H:i:s');
+    if (isset($stack[$time])) {
+        $stack[$time]();
+        unset($stack[$time]);
     }
 }
+
